@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/mainStyles.css">
+    <link rel="stylesheet" href="./css/storyStyles.css">
+    <link rel="stylesheet" href="./css/threejsStyles.css">
+    <link rel="stylesheet" href="./css/leafletStyles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
+
+    <title>Neuperlach, Munich</title>
+    <link rel="icon" type="image/x-icon" href="./data/logo/str-fav-icon.png">
+</head>
+
+<body>
+    <nav id="navbar">
+        <a class="pages" href="index.html">HOME</a>
+        <a class="pages" href="graphs.html">MAP AND DIAGRAMS</a>
+        <!-- <a class="pages" href="comparison.html">COMPARISON</a> -->
+        <!-- <a class="pages" href="about.html">ABOUT</a> -->
+    </nav>
+
+    <div class="mainBodyContainer">
+        <div class="row">
+            <div class="col-md-2 bg-white collapse show" id="parameterSelection" style="position: relative;">
+                <h2 class="customH1">Parameter Selection</h2>
+
+                <div class="dropdown-container">
+                    <label>Scenario</label>
+                    <select id="scenarioSelector">
+                        <option value="BS0" selected>Baseline</option>
+                        <option value="BS1">Baseline (Sub-domain)</option>
+                        <option value="S1">The STRUCTURE</option>
+                    </select>
+                </div>
+
+                <div class="dropdown-container">
+                    <label>Location</label>
+                    <select id="locationSelector">
+                        <!-- Parent -->
+                        <option value="N00" selected>Overall</option>
+                        <!-- N02 -->
+                        <option value="N02">Neuperlach Zentrum</option>
+                        <!-- N03 -->
+                        <option value="N03">International Montessorischule</option>
+                        <!-- N04 -->
+                        <option value="N04">Neuperlach Nord</option>
+                    </select>
+                </div>
+
+                <div class="dropdown-container">
+                    <label>Variable</label>
+                    <select id="variableSelector">
+                        <option value="ta_2m" selected>Air Temperature</option>
+                        <option value="tsurf">Surface Temperature</option>
+                        <option value="bio_pet">PET</option>
+                        <option value="bio_utci">UTCI</option>
+                        <!-- <option value="tIndoor">Indoor Temperature</option> -->
+                    </select>
+                </div>
+
+                <div class="slider-container">
+                    <label for="time-slider">Time of the day:</label>
+                    <input type="range" id="time-slider" min="0" max="24" step="1" value="12">
+                    <div class="slider-time-value">12:00</div>
+                </div>
+
+                <div class="slider-container">
+                    <label for="transparency-slider">Transparency (%):</label>
+                    <input type="range" id="transparency-slider" min="0" max="100" step="5" value="75">
+                    <div class="slider-transparency-value">60</div>
+                </div>
+
+            </div>
+
+            <div class="col-md-5 bg-white">
+                <!-- <h2 class="customH1">&nbsp</h2> -->
+                <div id="map"></div>
+                <p style="font-weight: bold; margin:0">Note:</p>
+                <p style="margin:0; font-size:0.9em;">Press <strong>'R'</strong> to reset to overview.</p>
+                <p style="margin:0; font-size:0.9em">Press <strong>'Space bar'</strong> to zoom to the selected location
+                </p>
+                <p style="margin:0; font-size:0.9em;">Press <strong>'L'</strong> or <strong>'T'</strong> toggle
+                    <strong>Legend</strong> visibility</p>
+                <p style="margin:0; font-size:0.9em;"><strong>'Left-Click'</strong> on the active <strong>Variable Layer</strong> to add marker.
+                </p>
+            </div>
+
+            <div class="col-md-5 bg-white">
+                <!-- <h2 class="customH1">&nbsp</h2> -->
+                <div id="plotlyLineGraph"></div>
+                <div id="plotContainer"></div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+    <footer class="webFooterContainer">
+        <p>
+            Powered by:
+            <a href="https://www.str-ucture.com/" target="_blank">
+                <img src="./data/logo/240209_str-ucture_logo_rgb-02.png" alt="str.ucture GmbH"
+                    style="height: 1.75vh; vertical-align: middle;">
+            </a>and
+            <a href="https://cesium.com/" target="_blank">
+                <img src="https://cesium.com/logo-kit/cesiumjs/CesiumJS_dark_color.png" alt="CesiumJS Logo"
+                    style="height: 2vh; vertical-align: middle;">
+            </a>
+        </p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/georaster"></script>
+    <script src="https://unpkg.com/georaster-layer-for-leaflet"></script>
+    <script src="https://unpkg.com/georaster-layer-for-leaflet/dist/georaster-layer-for-leaflet.min.js"></script>
+    <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.6.2/proj4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script>
+    <script src="https://unpkg.com/geoblaze"></script>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- Custom JS Script -->
+    <script src="./js/general/generalScripts.js"></script>
+    <script src="./js/graphsAndMaps/leafletMain.js" type="module"></script>
+    <script src="./js/graphsAndMaps/plotlyFunctions.js" type="module"></script>
+
+    <!-- jQuery, Popper.js, and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+</body>
+
+</html>
