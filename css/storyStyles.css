@@ -1,7 +1,7 @@
 .storyHeaderContainer {
     display: flex;
     flex-wrap: wrap;
-    background: linear-gradient(to right, rgb(255, 62, 181), rgba(255, 62, 181, 0.8));
+    background: linear-gradient(to right, rgb(255, 62, 181), rgba(255, 62, 181, 1));
     padding: 5px;
     margin-bottom: 5px;
     width: 100%;
@@ -34,7 +34,7 @@ a {
 }
 
 .storyHeader a:hover {
-    color: rgb(255, 220, 242);
+    color: rgb(255, 196, 233);
     font-weight: bold;
     text-decoration: none;
 }
@@ -44,7 +44,6 @@ a {
     height: 65vh;
     margin-top: 10px;
     overflow-y: auto;
-    border: 1px solid red;
 }
 
 .text-content {
@@ -139,7 +138,7 @@ p[id^="description"] {
     position: absolute;
     right: 7.5%;
     bottom: 1.5%;
-    opacity: 0.6;
+    opacity: 0.4;
     transition: opacity 0.2s;
 }
 .scrollToTopButton:hover {
