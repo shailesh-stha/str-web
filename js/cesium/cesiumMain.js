@@ -17,6 +17,14 @@ try {
   console.log(`Failed to load tileset: ${error}`);
 }
 
+// Custom logic
+viewer.scene.screenSpaceCameraController.zoomEventTypes = [{
+  eventType: Cesium.CameraEventType.WHEEL,
+  modifier: Cesium.KeyboardEventModifier.CTRL
+}];
+
+
+
 async function getBoundingBoxFromGeoJSON(url) {
   const response = await fetch(url);
   const geojson = await response.json();

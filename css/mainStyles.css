@@ -9,11 +9,16 @@ body {
     padding: 10px;
     margin: 10px;
     background-color: rgb(255, 255, 255);
-    overflow: hidden;
+    /* overflow: hidden; */
     position: relative;
     left: 50%;
     transform: translateX(-50%);
     border: 1px solid rgb(204, 204, 204);
+}
+
+.blankForTest {
+    height: 500px;
+    border: 1px solid black;
 }
 
 /* Total scrollbar styling */
@@ -85,7 +90,7 @@ nav a.active {
 }
 #cesiumMapContainerEmpty {
     width: 100%;
-    height: 73vh;
+    height: 76vh;
     border: 1px solid black;
 }
 

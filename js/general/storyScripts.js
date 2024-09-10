@@ -5,10 +5,11 @@ document.querySelectorAll(".storyHeader a").forEach((anchor) => {
 
     const targetId = this.getAttribute("href").substring(1);
     const targetElement = document.getElementById(targetId);
+    const storyContentContainer = document.querySelector(".storyContentContainer");
 
-    targetElement.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
+    storyContentContainer.scrollTo({
+      top: targetElement.offsetTop - storyContentContainer.offsetTop,
+      behavior: "smooth"
     });
   });
 });
@@ -53,8 +54,6 @@ function scrollToTop() {
       behavior: 'smooth'
   });
 }
-
-
 
 // Print current active header
 document.addEventListener('DOMContentLoaded', () => {
