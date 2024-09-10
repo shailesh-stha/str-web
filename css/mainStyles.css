@@ -3,14 +3,17 @@
 }
 
 body {
-    width: min(100%, 1672px);
+    width: min(100%, 1500px);
     /* width 1672px */
     height: min(814.9px, 100%);
     padding: 10px;
     margin: 10px;
     background-color: rgb(255, 255, 255);
     overflow: hidden;
-    /* border: 1px solid black; */
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid rgb(204, 204, 204);
 }
 
 /* Total scrollbar styling */
