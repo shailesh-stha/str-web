@@ -1,0 +1,2 @@
+MasterBetaKey = "SJC?-5^]GAoVVCE"EBTh7km,E/)mzl"
+GlobalHardStopDate = "2026, 11, 30, 22, 59, 59"
